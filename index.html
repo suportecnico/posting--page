@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        :root{
+            /* Paleta de cores */
+            --cor-backgroundPrincipal: #CFCBC4;
+            --cor-NavRodape: #2A2E30;
+            --cor-botoes: #E6B86A;
+            --cor-titulos: #3F4447;
+            --cor-texto: #6B4E3D;
+            --cor-bordas: #8A8176;
+            /* Fontes */
+            --font-titulo: "Open Sans", sans-serif;
+            --font-textos: "Montserrat", sans-serif;
+            --font-assunto: "Lora", serif;
+        }
+        body{
+            font-family: var(--font-textos);
+        }
+        header{
+            text-align: center;
+
+        }
+        main{
+            display: flex;
+            flex-wrap: wrap;
+            margin: auto;
+            justify-content: center;
+        }
+        img{
+            margin: auto;
+            width: 100%;
+        }
+        ul{
+            list-style-type: none;
+        }
+        li{
+            font-weight: bold;
+        }
+        main #posts-rotina-invisivel #post-sub-titulo{
+            
+        }
+        main #posts-rotina-invisivel #post-do-dia{
+            margin: auto;
+            width: 90vw;
+        }
+        main #posts-rotina-invisivel #post-do-dia #post-do-dia-imagem{
+            margin: auto;
+            width: 90vw;
+        }
+        main #posts-rotina-invisivel-form{
+            
+        }
+        main #posts-rotina-invisivel-form #post-do-dia-form{
+            /* display: none; */
+            display: flex;
+            flex-wrap: wrap;
+            width: 90vw;
+            background-color: #CFCBC4;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+       main #posts-rotina-invisivel-form #post-do-dia-form #post-form{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        background-color: #8d6114;
+        width: 45vw;
+        margin: auto;
+        text-align: center;
+       }
+       main #posts-rotina-invisivel-form #post-do-dia-form #post-form #titulo-postagem{
+        width: 45vw;
+        margin-bottom: 5px;
+        text-align: center;
+       }
+       main #posts-rotina-invisivel-form #post-do-dia-form #post-form #assunto-postagem{
+        width: 45vw;
+        text-align: center;
+       }
+       main #posts-rotina-invisivel-form #post-do-dia-form #post-form #btn-postagem {
+        margin: 10px;
+        padding: 5px;
+        border-radius: 8px;
+       }
+       main #posts-rotina-invisivel-form #post-do-dia-form #post-form-resultado{
+        background-color: blueviolet;
+        width: 45vw;
+        margin: auto;
+       }
+      main #posts-rotina-invisivel-form #post-do-dia-form #post-form-resultado #post-form-resultado-titulo{
+        width: 45vw;
+        margin: auto;
+      }
+      main #posts-rotina-invisivel-form #post-do-dia-form #post-form-resultado #post-form-resultado-assunto{
+        width: 45vw;
+        margin: auto;
+      }
+       
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="post-titulo">Rotina Invisível</h1>
+    </header>
+    <main>
+        <section id="posts-rotina-invisivel">
+                <div id="post-do-dia">
+                    <div id="post-do-dia-imagem">
+                        <h2 id="post-sub-titulo">
+                            Vivemos cercados por momentos que não fazem barulho
+                        </h2>
+                        <img src="banner.png" alt="post">
+                    </div>
+                <p>
+                    A cidade acorda antes de nós percebermos.
+                    A padaria abre.
+                    O chão ainda está molhado.
+                    Alguém espera o ônibus.
+                    A luz chega devagar entre os prédios.
+                </p>
+                <p>Nada disso parece importante…</p>
+                <p>Mas é nesse silêncio que a vida realmente acontece.</p>
+                <p>Rotina Invisível é um espaço para observar o que passa despercebido:</p>
+                <ul>
+                    <li>os hábitos que moldam nossos dias</li>
+                     <li>os pequenos rituais que sustentam nossas semanas</li>
+                      <li>os lugares onde o tempo parece desacelerar</li>
+                </ul>
+                <p>
+                    Aqui, o extraordinário não está no raro…
+                </p>
+                <button id="post-btn">Postar um Comentário</button>
+                </div>
+        </section>
+        <!--  -->
+        <section id="posts-rotina-invisivel-form">
+             <div id="post-do-dia-form">
+                    <!-- essa div aqui vai ficar com display none,que será chamada pelo click de post-btn -->
+                    <form id="post-form">
+                        <input type="text" id="titulo-postagem" placeholder="Título da Postagem">
+                        <textarea name="Assunto-da-Postagem" id="assunto-postagem" placeholder="Assunto da Postagem"></textarea>
+                        <input type="submit" value="Publicar" id="btn-postagem">
+                    </form>
+                    <div id="post-form-resultado">
+                        <!-- <div id="post-form-resultado-titulo"></div>
+                        <div id="post-form-resultado-assunto"></div> -->
+                    </div>
+                </div>
+        </section>
+    </main>
+    
+    <script>
+        class PacoteBuscador {
+    constructor(URL) {
+        this.baseURL = URL;
+    }
+    post(URL, body) {
+        return fetch(URL, {
+            method: "POST",
+            headers: {"Content-type": "application/json; charset=UTF-8"},
+            body: JSON.stringify(data)
+         });
+    };
+
+}
+
+const form = document.querySelector("#post-form");
+const titulo = document.querySelector("#titulo-postagem");
+const assunto = document.querySelector("#assunto-postagem");
+const btnPostagem = document.querySelector("#btn-postagem");
+const resultadoForm = document.querySelector("#post-form-resultado");
+// const resultadoTitulo = document.querySelector("#post-form-resultado-titulo");
+// const resultadoAssunto = document.querySelector("#post-form-resultado-assunto");
+
+const API = new PacoteBuscador("https://jsonplaceholder.typicode.com/posts");
+
+    // titulo.addEventListener("input", event => {
+    //     resultadoTitulo.textContent = "";
+    //     resultadoTitulo.insertAdjacentHTML("beforeend", `
+    //         <h2>${event.currentTarget.value}</h2>
+    //     `)
+    // })
+
+    assunto.addEventListener("input", () => {
+        resultadoForm.textContent = "";
+        resultadoForm.insertAdjacentHTML("beforeend", `
+        <h2>${titulo.value}</h2>
+        <p>${assunto.value}</p>
+    `);
+    })
+    
+
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        alert("olá, formulário enviado!")
+
+    })
+    </script>
+</body>
+</html>
