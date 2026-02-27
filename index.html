@@ -27,6 +27,7 @@
         }
         body{
             font-family: var(--font-textos);
+            background-color: var(--cor-backgroundPrincipal);
         }
         header{
             text-align: center;
@@ -48,10 +49,6 @@
         li{
             font-weight: bold;
         }
-        p{
-            word-break: break-all;
-            /* Quebra de linha */
-        }
         main #posts-rotina-invisivel #post-sub-titulo{
             
         }
@@ -67,19 +64,24 @@
             
         }
         main #posts-rotina-invisivel-form #post-do-dia-form{
-            /* display: none; */
             display: flex;
             flex-wrap: wrap;
             width: 90vw;
-            background-color: #CFCBC4;
+            background-color: var(--cor-backgroundPrincipal);
             margin-top: 20px;
             margin-bottom: 20px;
+        }
+        img{
+            padding-top: 10px;
+        }
+        .none{
+            display: none;
         }
        main #posts-rotina-invisivel-form #post-do-dia-form #post-form{
         display: flex;
         flex-wrap: wrap;
         justify-content: start;
-        background-color: #8d6114;
+        background-color: var(--cor-backgroundPrincipal);
         width: 45vw;
         margin: auto;
         text-align: center;
@@ -93,16 +95,23 @@
         width: 45vw;
         text-align: center;
        }
-       main #posts-rotina-invisivel-form #post-do-dia-form #post-form #btn-postagem {
+       main #posts-rotina-invisivel-form #post-do-dia-form #post-form-resultado{
+        background-color: white;
+        width: 45vw;
+        min-height: 100px;
+        margin: 0px auto auto auto;
+        text-align: center;
+        border: solid 1px var(--cor-NavRodape);
+       }
+       #post-btn, #btn-postagem{
         margin: 10px;
         padding: 5px;
         border-radius: 8px;
+        background-color: var(--cor-botoes);
+        color: var(--cor-texto);
+        font-weight: bold;
        }
-       main #posts-rotina-invisivel-form #post-do-dia-form #post-form-resultado{
-        background-color: blueviolet;
-        width: 45vw;
-        margin: auto;
-       }
+        
        
     </style>
 </head>
@@ -129,11 +138,6 @@
                 <p>Nada disso parece importante…</p>
                 <p>Mas é nesse silêncio que a vida realmente acontece.</p>
                 <p>Rotina Invisível é um espaço para observar o que passa despercebido:</p>
-                <ul>
-                    <li>os hábitos que moldam nossos dias</li>
-                     <li>os pequenos rituais que sustentam nossas semanas</li>
-                      <li>os lugares onde o tempo parece desacelerar</li>
-                </ul>
                 <p>
                     Aqui, o extraordinário não está no raro…
                 </p>
@@ -142,7 +146,7 @@
         </section>
         <!--  -->
         <section id="posts-rotina-invisivel-form">
-             <div id="post-do-dia-form">
+             <div id="post-do-dia-form" class="none">
                     <!-- essa div aqui vai ficar com display none,que será chamada pelo click de post-btn -->
                     <form id="post-form">
                         <input type="text" id="titulo-postagem" placeholder="Título da Postagem">
@@ -160,11 +164,20 @@
 const form = document.querySelector("#post-form");
 const titulo = document.querySelector("#titulo-postagem");
 const conteudo = document.querySelector("#conteudo-postagem");
+const btnDisplay = document.querySelector("#post-btn");
 const btnPostagem = document.querySelector("#btn-postagem");
 const resultadoForm = document.querySelector("#post-form-resultado");
-    
-    // Enviar post 
-    form.addEventListener("submit", event => {
+const sectionForm = document.querySelector("#posts-rotina-invisivel-form");
+
+        document.addEventListener("DOMContentLoaded", () => {
+            sectionForm.classList.add("none");
+        })
+        
+        btnDisplay.addEventListener("click", () => {
+            sectionForm.classList.remove("none");
+        })
+        // Enviar post 
+        form.addEventListener("submit", event => {
         event.preventDefault();
         const data = {
             title: titulo.value,
@@ -179,10 +192,11 @@ const resultadoForm = document.querySelector("#post-form-resultado");
          .then(response => response.json())
          .then(data => {
             // Renderizar post
+            // console.log(data);
                 resultadoForm.textContent = "";
                 resultadoForm.insertAdjacentHTML("beforeend", `
                 <h2>${data.title}</h2>
-                <p>${data.conteudo}</p>
+                <p id="p-break">${data.body}</p>
                 `);
                 
          });
