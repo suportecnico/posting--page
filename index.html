@@ -48,6 +48,10 @@
         li{
             font-weight: bold;
         }
+        p{
+            word-break: break-all;
+            /* Quebra de linha */
+        }
         main #posts-rotina-invisivel #post-sub-titulo{
             
         }
@@ -85,7 +89,7 @@
         margin-bottom: 5px;
         text-align: center;
        }
-       main #posts-rotina-invisivel-form #post-do-dia-form #post-form #assunto-postagem{
+       main #posts-rotina-invisivel-form #post-do-dia-form #post-form #conteudo-postagem{
         width: 45vw;
         text-align: center;
        }
@@ -99,14 +103,6 @@
         width: 45vw;
         margin: auto;
        }
-      main #posts-rotina-invisivel-form #post-do-dia-form #post-form-resultado #post-form-resultado-titulo{
-        width: 45vw;
-        margin: auto;
-      }
-      main #posts-rotina-invisivel-form #post-do-dia-form #post-form-resultado #post-form-resultado-assunto{
-        width: 45vw;
-        margin: auto;
-      }
        
     </style>
 </head>
@@ -150,63 +146,48 @@
                     <!-- essa div aqui vai ficar com display none,que será chamada pelo click de post-btn -->
                     <form id="post-form">
                         <input type="text" id="titulo-postagem" placeholder="Título da Postagem">
-                        <textarea name="Assunto-da-Postagem" id="assunto-postagem" placeholder="Assunto da Postagem"></textarea>
+                        <textarea name="Assunto-da-Postagem" id="conteudo-postagem" placeholder="Assunto da Postagem"></textarea>
                         <input type="submit" value="Publicar" id="btn-postagem">
                     </form>
                     <div id="post-form-resultado">
-                        <!-- <div id="post-form-resultado-titulo"></div>
-                        <div id="post-form-resultado-assunto"></div> -->
                     </div>
                 </div>
         </section>
     </main>
     
     <script>
-        class PacoteBuscador {
-    constructor(URL) {
-        this.baseURL = URL;
-    }
-    post(URL, body) {
-        return fetch(URL, {
-            method: "POST",
-            headers: {"Content-type": "application/json; charset=UTF-8"},
-            body: JSON.stringify(data)
-         });
-    };
-
-}
 
 const form = document.querySelector("#post-form");
 const titulo = document.querySelector("#titulo-postagem");
-const assunto = document.querySelector("#assunto-postagem");
+const conteudo = document.querySelector("#conteudo-postagem");
 const btnPostagem = document.querySelector("#btn-postagem");
 const resultadoForm = document.querySelector("#post-form-resultado");
-// const resultadoTitulo = document.querySelector("#post-form-resultado-titulo");
-// const resultadoAssunto = document.querySelector("#post-form-resultado-assunto");
-
-const API = new PacoteBuscador("https://jsonplaceholder.typicode.com/posts");
-
-    // titulo.addEventListener("input", event => {
-    //     resultadoTitulo.textContent = "";
-    //     resultadoTitulo.insertAdjacentHTML("beforeend", `
-    //         <h2>${event.currentTarget.value}</h2>
-    //     `)
-    // })
-
-    assunto.addEventListener("input", () => {
-        resultadoForm.textContent = "";
-        resultadoForm.insertAdjacentHTML("beforeend", `
-        <h2>${titulo.value}</h2>
-        <p>${assunto.value}</p>
-    `);
-    })
     
-
+    // Enviar post 
     form.addEventListener("submit", event => {
         event.preventDefault();
-        alert("olá, formulário enviado!")
+        const data = {
+            title: titulo.value,
+            body: conteudo.value,
+            userId: 1
+        }
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+            method: "POST",
+            headers: {"Content-type": "application/json; charset=UTF-8"},
+            body: JSON.stringify(data)
+         })
+         .then(response => response.json())
+         .then(data => {
+            // Renderizar post
+                resultadoForm.textContent = "";
+                resultadoForm.insertAdjacentHTML("beforeend", `
+                <h2>${data.title}</h2>
+                <p>${data.conteudo}</p>
+                `);
+                
+         });
 
-    })
+    });
     </script>
 </body>
 </html>
